@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn2:definitions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:bpmn2="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:camunda="http://activiti.org/bpmn" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xsi:schemaLocation="http://www.omg.org/spec/BPMN/20100524/MODEL BPMN20.xsd" id="_Lr2x0G5qEeSJA5fi1rUWXQ" exporter="camunda modeler" exporterVersion="2.6.0" targetNamespace="http://activiti.org/bpmn">
+  <bpmn2:process id="queryDBTest" name="Query Database" isExecutable="true">
+    <bpmn2:documentation>Prüfen und Freigeben von Adressdaten</bpmn2:documentation>
+    <bpmn2:endEvent id="EndEvent_1" name="done">
+      <bpmn2:extensionElements>
+        <camunda:executionListener class="de.ancud.camunda.test.process.TestListener" event="start"/>
+      </bpmn2:extensionElements>
+      <bpmn2:incoming>SequenceFlow_2</bpmn2:incoming>
+    </bpmn2:endEvent>
+    <bpmn2:dataObject id="DataObject_1"/>
+    <bpmn2:startEvent id="StartEvent_1" camunda:initiator="initiator" name="Check DB Info">
+      <bpmn2:extensionElements>
+        <camunda:properties>
+          <camunda:property/>
+        </camunda:properties>
+        <camunda:formData>
+          <camunda:formField id="select" label="Sql Select" type="string"/>
+        </camunda:formData>
+      </bpmn2:extensionElements>
+      <bpmn2:outgoing>SequenceFlow_5</bpmn2:outgoing>
+    </bpmn2:startEvent>
+    <bpmn2:sequenceFlow id="SequenceFlow_5" name="" sourceRef="StartEvent_1" targetRef="ServiceTask_2"/>
+    <bpmn2:serviceTask id="ServiceTask_2" name="Connect to DB">
+      <bpmn2:extensionElements>
+        <camunda:connector>
+          <camunda:connectorId>sql-connector</camunda:connectorId>
+          <camunda:inputOutput>
+            <camunda:inputParameter name="select">${inputSelect}</camunda:inputParameter>
+            <camunda:outputParameter name="sqlResult">${result}</camunda:outputParameter>
+          </camunda:inputOutput>
+        </camunda:connector>
+        <camunda:inputOutput>
+          <camunda:inputParameter name="inputSelect">${select}</camunda:inputParameter>
+          <camunda:outputParameter name="globalResult">${sqlResult}</camunda:outputParameter>
+        </camunda:inputOutput>
+      </bpmn2:extensionElements>
+      <bpmn2:incoming>SequenceFlow_5</bpmn2:incoming>
+      <bpmn2:outgoing>SequenceFlow_1</bpmn2:outgoing>
+    </bpmn2:serviceTask>
+    <bpmn2:sequenceFlow id="SequenceFlow_1" name="" sourceRef="ServiceTask_2" targetRef="UserTask_1"/>
+    <bpmn2:userTask id="UserTask_1" camunda:assignee="${initiator}" name="Check Result">
+      <bpmn2:extensionElements>
+        <camunda:formData>
+          <camunda:formField id="select" label="Sql Select" type="string"/>
+          <camunda:formField id="globalResult" label="Result" type="string"/>
+        </camunda:formData>
+      </bpmn2:extensionElements>
+      <bpmn2:incoming>SequenceFlow_1</bpmn2:incoming>
+      <bpmn2:outgoing>SequenceFlow_2</bpmn2:outgoing>
+    </bpmn2:userTask>
+    <bpmn2:sequenceFlow id="SequenceFlow_2" name="" sourceRef="UserTask_1" targetRef="EndEvent_1"/>
+  </bpmn2:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="queryDBTest">
+      <bpmndi:BPMNShape id="_BPMNShape_StartEvent_4" bpmnElement="StartEvent_1">
+        <dc:Bounds height="36.0" width="36.0" x="240.0" y="130.0"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="22.0" width="89.0" x="214.0" y="171.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="_BPMNShape_EndEvent_4" bpmnElement="EndEvent_1">
+        <dc:Bounds height="36.0" width="36.0" x="768.0" y="130.0"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="40.0" width="77.0" x="748.0" y="171.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="_BPMNShape_ServiceTask_3" bpmnElement="ServiceTask_2">
+        <dc:Bounds height="80.0" width="100.0" x="348.0" y="108.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_1" bpmnElement="SequenceFlow_1" sourceElement="_BPMNShape_ServiceTask_3" targetElement="_BPMNShape_UserTask_8">
+        <di:waypoint xsi:type="dc:Point" x="448.0" y="148.0"/>
+        <di:waypoint xsi:type="dc:Point" x="564.0" y="148.0"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="6.0" width="6.0" x="491.0" y="148.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="_BPMNShape_UserTask_8" bpmnElement="UserTask_1">
+        <dc:Bounds height="80.0" width="100.0" x="564.0" y="108.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_2" bpmnElement="SequenceFlow_2" sourceElement="_BPMNShape_UserTask_8" targetElement="_BPMNShape_EndEvent_4">
+        <di:waypoint xsi:type="dc:Point" x="664.0" y="148.0"/>
+        <di:waypoint xsi:type="dc:Point" x="768.0" y="148.0"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="6.0" width="6.0" x="683.0" y="148.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_5" bpmnElement="SequenceFlow_5" sourceElement="_BPMNShape_StartEvent_4" targetElement="_BPMNShape_ServiceTask_3">
+        <di:waypoint xsi:type="dc:Point" x="276.0" y="148.0"/>
+        <di:waypoint xsi:type="dc:Point" x="348.0" y="148.0"/>
+        <bpmndi:BPMNLabel>
+          <dc:Bounds height="6.0" width="6.0" x="333.0" y="148.0"/>
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn2:definitions>
