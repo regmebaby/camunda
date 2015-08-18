@@ -6,6 +6,7 @@ import de.ancud.camunda.connector.sql.util.TestDataSourceProvider;
 import org.junit.Assert;
 import org.junit.Test;
 
+import java.math.BigDecimal;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.sql.Types;
@@ -37,14 +38,37 @@ public class SimpleDAOTest {
 
         List<StpCallDTO> params = new ArrayList<StpCallDTO>();
 
-        StpCallDTO outParam = new StpCallDTO();
-        outParam.setDataType(Types.NUMERIC);
-        outParam.setName("result");
-        outParam.setStpParamType("out");
+//        StpCallDTO excRate = new StpCallDTO();
+//        excRate.setDataType(Types.NUMERIC);
+//        //excRate.setName("result");
+//        excRate.setStpParamType("out");
 
-        Map<String, Object> res = dao.callStoredProcedure("SUM_ORDERS", params);
+        double excRateVal = 0.5;
+        double fixedCostVal = 1001;
+
+        StpCallDTO excRate = new StpCallDTO();
+        excRate.setDataType(Types.DOUBLE);
+        excRate.setName("EXC_RATE");
+        excRate.setStpParamType("in");
+        excRate.setValue(excRateVal);
+
+        StpCallDTO fixedCost = new StpCallDTO();
+        fixedCost.setDataType(Types.DOUBLE);
+        fixedCost.setName("FIXED_COST");
+        fixedCost.setStpParamType("in");
+        fixedCost.setValue(fixedCostVal);
+
+        params.add(excRate);
+        params.add(fixedCost);
+
+        Map<String, Object> res = dao.callStoredProcedure("SELECT_ORDERS", params);
         System.out.println("res = " + res);
+        BigDecimal otherCurrency = (BigDecimal)res.get("OTHER_CURRENCY");
+        BigDecimal sum = (BigDecimal)res.get("SUM_PAR");
+        BigDecimal costTotal = (BigDecimal)res.get("COST_TOTAL");
 
-        Assert.assertEquals("Expected exactly one result in map",1, res.size());
+        Assert.assertEquals("Expected exactly 3 result in map",3, res.size());
+        Assert.assertEquals(sum.multiply(new BigDecimal(excRateVal)), otherCurrency);
+        Assert.assertEquals(sum.add(new BigDecimal(fixedCostVal)), costTotal);
     }
 }
