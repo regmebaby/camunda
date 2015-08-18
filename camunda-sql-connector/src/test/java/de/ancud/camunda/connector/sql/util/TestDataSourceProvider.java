@@ -1,6 +1,7 @@
 package de.ancud.camunda.connector.sql.util;
 
 import de.ancud.camunda.connector.sql.dao.HSQLTestDataSourceFactoryImpl;
+import de.ancud.camunda.connector.sql.dao.OracleTestDataSourceFactoryImpl;
 import de.ancud.camunda.connector.sql.dao.SqlConnectorDAO;
 import de.ancud.camunda.connector.sql.dao.SqlConnectorDataSourceFactory;
 import de.ancud.camunda.connector.sql.dao.impl.SqlConnectorDAOImpl;
@@ -38,6 +39,15 @@ public class TestDataSourceProvider {
                     getClassLoader().getResourceAsStream(TEST_CONFIG_SQL));
 
             ScriptUtils.executeSqlScript(connection, isr);
+        }
+        return dao;
+    }
+
+    public static SqlConnectorDAO getDaoAndInitOracleDB() throws
+            SQLException {
+        if (dao == null){
+            SqlConnectorDataSourceFactory dataSourceFactory = new OracleTestDataSourceFactoryImpl();
+            dao = new SqlConnectorDAOImpl(dataSourceFactory);
         }
         return dao;
     }

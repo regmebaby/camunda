@@ -44,7 +44,6 @@ public class ConnectorTest {
         sqlRequest.getRequestParameters().put(ConnectorKeys.INPUT_KEY_SQL_SELECT, "select * from DEMO_CUSTOMERS where" +
                 " Customer_ID in (1,2)");
 
-
         ConnectorResponse response = sqlRequest.execute();
 
         Assert.assertTrue(response.getResponseParameters() != null);

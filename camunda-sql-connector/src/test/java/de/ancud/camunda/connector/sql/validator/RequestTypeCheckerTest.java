@@ -1,12 +1,13 @@
 package de.ancud.camunda.connector.sql.validator;
 
 import de.ancud.camunda.connector.sql.constants.ConnectorKeys;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import static org.junit.Assert.*;
 
 /**
  * @author bnmaxim.
@@ -26,7 +27,7 @@ public class RequestTypeCheckerTest {
     public void testValidIsSelectCall() throws Exception {
         requestParams.put("select", null);
 
-        Assert.assertTrue("Request contains a select, expected the checker to answer TRUE", this.requestTypeChecker
+        assertTrue("Request contains a select, expected the checker to answer TRUE", this.requestTypeChecker
                 .isSqlSelect(requestParams));
 
     }
@@ -35,7 +36,7 @@ public class RequestTypeCheckerTest {
     public void testInvalidIsSelectCall() throws Exception {
         requestParams.put(ConnectorKeys.INPUT_KEY_SQL_STP, null);
 
-        Assert.assertFalse("Request does not contain a SELECT statement, expected the checker to answer FALSE", this
+        assertFalse("Request does not contain a SELECT statement, expected the checker to answer FALSE", this
                 .requestTypeChecker
                 .isSqlSelect(requestParams));
 
@@ -45,7 +46,7 @@ public class RequestTypeCheckerTest {
     public void testValidIsStoredProcedureCall() throws Exception{
         requestParams.put(ConnectorKeys.INPUT_KEY_SQL_STP, null);
 
-        Assert.assertTrue("Request contains an STP call, expected the checker to answer TRUE", this.requestTypeChecker
+        assertTrue("Request contains an STP call, expected the checker to answer TRUE", this.requestTypeChecker
                 .isStoredProcedureCall(requestParams));
 
     }
@@ -54,7 +55,7 @@ public class RequestTypeCheckerTest {
     public void testInvalidIsStoredProcedureCall() throws Exception{
         requestParams.put("select", null);
 
-        Assert.assertFalse("Request does not contain an STP call, expected the checker to answer FALSE", this
+        assertFalse("Request does not contain an STP call, expected the checker to answer FALSE", this
                 .requestTypeChecker
                 .isStoredProcedureCall(requestParams));
     }
