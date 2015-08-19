@@ -5,17 +5,8 @@ package de.ancud.camunda.connector.sql.dto;
  */
 public class StpCallDTO {
     private String name;
-    private Object value;
+    private String value;
     private int dataType;
-    private StpParamType stpParamType;
-
-    public StpParamType getStpParamType() {
-        return stpParamType;
-    }
-
-    public void setStpParamType(String ptString) {
-        this.stpParamType = StpParamType.getStpParamType(ptString);
-    }
 
     public String getName() {
         return name;
@@ -25,11 +16,11 @@ public class StpCallDTO {
         this.name = name;
     }
 
-    public Object getValue() {
+    public String getValue() {
         return value;
     }
 
-    public void setValue(Object value) {
+    public void setValue(String value) {
         this.value = value;
     }
 
@@ -39,5 +30,10 @@ public class StpCallDTO {
 
     public void setDataType(int dataType) {
         this.dataType = dataType;
+    }
+
+    @Override
+    public String toString() {
+        return "{name=" + name + ", value=" + value + ", dataType=" + dataType +"}";
     }
 }

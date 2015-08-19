@@ -4,7 +4,7 @@ import de.ancud.camunda.connector.sql.dao.SqlConnectorDAO;
 import de.ancud.camunda.connector.sql.dao.impl.SqlConnectorDAOImpl;
 import de.ancud.camunda.connector.sql.dao.impl.SqlConnectorDataSourceFactoryImpl;
 import de.ancud.camunda.connector.sql.dto.StpCallDTO;
-import de.ancud.camunda.connector.sql.mapper.SqlConnectorParameterMapper;
+import de.ancud.camunda.connector.sql.mapper.StpCallParameterMapper;
 
 import java.util.List;
 import java.util.Map;
@@ -53,7 +53,7 @@ public class SqlConnectorService {
      * @return
      */
     public Map<String, Object> executeStpCall(String procedureName, String params) {
-        SqlConnectorParameterMapper parameterMapper = new SqlConnectorParameterMapper();
+        StpCallParameterMapper parameterMapper = new StpCallParameterMapper();
         List<StpCallDTO> dtoParamList = parameterMapper.map(params);
 
         return this.dao.callStoredProcedure(procedureName, dtoParamList);

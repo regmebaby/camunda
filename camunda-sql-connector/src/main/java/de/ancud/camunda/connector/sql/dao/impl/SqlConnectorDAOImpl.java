@@ -6,8 +6,6 @@ import de.ancud.camunda.connector.sql.dto.StpCallDTO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.SqlInOutParameter;
-import org.springframework.jdbc.core.SqlOutParameter;
 import org.springframework.jdbc.core.SqlParameter;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.simple.SimpleJdbcCall;
@@ -51,24 +49,12 @@ public class SqlConnectorDAOImpl implements SqlConnectorDAO {
 
 
     public Map<String, Object> callStoredProcedure(String stpName, List<StpCallDTO> sqlParams) {
-
         ArrayList<SqlParameter> params = new ArrayList<SqlParameter>();
         MapSqlParameterSource values = new MapSqlParameterSource();
 
         for (StpCallDTO dto : sqlParams) {
-            switch (dto.getStpParamType()) {
-                case IN:
-                    params.add(new SqlParameter(dto.getName(), dto.getDataType()));
-                    values.addValue(dto.getName(), dto.getValue());
-                    break;
-                case IN_OUT:
-                    params.add(new SqlInOutParameter(dto.getName(), dto.getDataType()));
-                    values.addValue(dto.getName(), dto.getValue());
-                    break;
-                case OUT:
-                    params.add(new SqlOutParameter(dto.getName(), dto.getDataType()));
-                    break;
-            }
+            params.add(new SqlParameter(dto.getName(), dto.getDataType()));
+            values.addValue(dto.getName(), dto.getValue());
         }
 
         SimpleJdbcCall stpCall = new SimpleJdbcCall(jdbcTemplate).withProcedureName(stpName);

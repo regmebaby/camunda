@@ -49,14 +49,12 @@ public class SimpleDAOTest {
         StpCallDTO excRate = new StpCallDTO();
         excRate.setDataType(Types.DOUBLE);
         excRate.setName("EXC_RATE");
-        excRate.setStpParamType("in");
-        excRate.setValue(excRateVal);
+        excRate.setValue(String.valueOf(excRateVal));
 
         StpCallDTO fixedCost = new StpCallDTO();
         fixedCost.setDataType(Types.DOUBLE);
         fixedCost.setName("FIXED_COST");
-        fixedCost.setStpParamType("in");
-        fixedCost.setValue(fixedCostVal);
+        fixedCost.setValue(String.valueOf(fixedCostVal));
 
         params.add(excRate);
         params.add(fixedCost);
