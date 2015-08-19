@@ -12,7 +12,7 @@ import java.util.Properties;
  */
 public class SqlConnectorDataSourceFactoryImpl implements SqlConnectorDataSourceFactory {
 
-    private DriverManagerDataSource ds;
+    private final DriverManagerDataSource ds;
 
     public SqlConnectorDataSourceFactoryImpl(String username, String password, String url, String driverClassName) {
         ds = new DriverManagerDataSource(url, username, password);

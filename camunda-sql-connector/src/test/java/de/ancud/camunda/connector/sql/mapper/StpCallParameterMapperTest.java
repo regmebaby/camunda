@@ -22,6 +22,7 @@ public class StpCallParameterMapperTest {
 
     /**
      * mapper gets a valid stp parameter JSON array as input. should be able to convert it.
+     *
      * @throws Exception
      */
     @Test
@@ -31,12 +32,13 @@ public class StpCallParameterMapperTest {
         List<StpCallDTO> res = mapper.map(validStpParams);
 
         System.out.println("res = " + res);
-        Assert.assertEquals("Expected two elements in the deserialized list",2, res.size());
+        Assert.assertEquals("Expected two elements in the deserialized list", 2, res.size());
 
     }
 
     /**
      * Mapper gets a non-Array as an input parameter. Should fail.
+     *
      * @throws Exception
      */
     @Test
@@ -46,7 +48,7 @@ public class StpCallParameterMapperTest {
         List<StpCallDTO> res = mapper.map(validStpParams);
 
         System.out.println("res = " + res);
-        Assert.assertTrue(res!=null && res.size()==0);
+        Assert.assertTrue(res != null && res.size() == 0);
 
     }
 }

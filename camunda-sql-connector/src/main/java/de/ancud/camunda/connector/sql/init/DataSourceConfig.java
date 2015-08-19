@@ -18,7 +18,7 @@ import java.util.Properties;
 public class DataSourceConfig {
 
 
-    private static Logger log = LoggerFactory.getLogger(DataSourceConfig.class.getName());
+    private static final Logger log = LoggerFactory.getLogger(DataSourceConfig.class.getName());
 
     /**
      * This method prioritizes DB-Configuration sources as follows:
@@ -32,10 +32,10 @@ public class DataSourceConfig {
      */
     public Properties getDBConnectionInfo(Map<String, Object> requestParams) {
         Properties props;
-        if ((props=this.extractPropsFromRequest(requestParams)) != null){
+        if ((props = this.extractPropsFromRequest(requestParams)) != null) {
             return props;
         }
-        if ((props=this.extractPropsFromJNDI(requestParams)) != null){
+        if ((props = this.extractPropsFromJNDI(requestParams)) != null) {
             return props;
         }
         return this.extractPropsFromClasspath();
@@ -47,9 +47,10 @@ public class DataSourceConfig {
             props.put(ConnectorKeys.PROP_KEY_URL, getProp(requestParams, ConnectorKeys.INPUT_KEY_DB_URL));
             props.put(ConnectorKeys.PROP_KEY_USERNAME, getProp(requestParams, ConnectorKeys.INPUT_KEY_DB_USERNAME));
             props.put(ConnectorKeys.PROP_KEY_PASSWORD, getProp(requestParams, ConnectorKeys.INPUT_KEY_DB_PASSWORD));
-            props.put(ConnectorKeys.PROP_KEY_DRIVER_CLASSNAME, getProp(requestParams, ConnectorKeys.INPUT_KEY_DB_DRIVER_CLASSNAME));
+            props.put(ConnectorKeys.PROP_KEY_DRIVER_CLASSNAME, getProp(requestParams, ConnectorKeys
+                    .INPUT_KEY_DB_DRIVER_CLASSNAME));
             return props;
-        }catch (MissingPropertyException mpe){
+        } catch (MissingPropertyException mpe) {
             log.debug("No DB Connection Info from live process data, proceeding...");
         }
         return null;
@@ -57,6 +58,7 @@ public class DataSourceConfig {
 
     /**
      * TODO
+     *
      * @param requestParams
      * @return
      */
@@ -66,6 +68,7 @@ public class DataSourceConfig {
 
     /**
      * Reads the datasource config from a properties file in the Classpath
+     *
      * @return the properties object, otherwise null
      */
     private Properties extractPropsFromClasspath() {
@@ -75,7 +78,7 @@ public class DataSourceConfig {
                     .DATASOURCE_CONFIG_FILE_NAME));
             return props;
         } catch (IOException e) {
-            log.error("Failed to read the database config from classpath because: " , e);
+            log.error("Failed to read the database config from classpath because: ", e);
         }
         return null;
     }
@@ -84,13 +87,15 @@ public class DataSourceConfig {
      * Checks if a non-empty String parameter with the
      * expected key is contained in the params-Map and returns it.
      * Throws an exception in case the param cannot be found or is null.
+     *
      * @param params
      * @param keyNameExpected
      * @return
      * @throws MissingRequiredPropertiesException
      */
-    private String getProp(Map<String, Object> params, String keyNameExpected) throws MissingRequiredPropertiesException{
-        if (CollectionUtils.containsInstance(params.keySet(), keyNameExpected) ){
+    private String getProp(Map<String, Object> params, String keyNameExpected) throws
+            MissingRequiredPropertiesException {
+        if (CollectionUtils.containsInstance(params.keySet(), keyNameExpected)) {
             String val = (String) params.get(keyNameExpected);
             if (StringUtils.isNotBlank(val)) {
                 return val;
@@ -103,9 +108,9 @@ public class DataSourceConfig {
     /**
      * meant for internal usage only
      */
-    private static class MissingPropertyException extends IllegalStateException{
+    private static class MissingPropertyException extends IllegalStateException {
 
-        private String prop;
+        private final String prop;
 
         public MissingPropertyException(String expectedProp) {
             this.prop = expectedProp;

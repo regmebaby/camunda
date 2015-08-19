@@ -43,7 +43,7 @@ public class ConnectorTest {
 
         Assert.assertTrue(response.getResponseParameters() != null);
         Assert.assertTrue(response.getResponseParameter(ConnectorKeys.OUTPUT_KEY_QUERY_RESULT) != null);
-        List<Map<String, Object>> rows = (List<Map<String, Object>>) response.getResponseParameter(ConnectorKeys
+        List<Map<String, Object>> rows = response.getResponseParameter(ConnectorKeys
                 .OUTPUT_KEY_QUERY_RESULT);
         Assert.assertEquals(2, rows.size());
 
@@ -51,7 +51,7 @@ public class ConnectorTest {
 
     @Test(expected = RuntimeException.class)
     public void testInvalidSelectRequest() throws Exception {
-        SqlConnector conn = provider.createConnectorInstance();;
+        SqlConnector conn = provider.createConnectorInstance();
         SqlRequest sqlRequest = conn.createRequest();
         sqlRequest.getRequestParameters().put(ConnectorKeys.INPUT_KEY_SQL_SELECT, "insert into DEMO_CUSTOMERS VALUES " +
                 "(1, 'Ringo', 'Richards', '2010-01-01',  parsedatetime('11-05-2012 16:25:52.69',\n" +

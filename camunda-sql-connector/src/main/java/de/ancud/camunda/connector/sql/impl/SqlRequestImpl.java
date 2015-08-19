@@ -1,9 +1,9 @@
 package de.ancud.camunda.connector.sql.impl;
 
-import de.ancud.camunda.connector.sql.validator.RequestValidator;
 import de.ancud.camunda.connector.sql.SqlConnector;
 import de.ancud.camunda.connector.sql.SqlRequest;
 import de.ancud.camunda.connector.sql.SqlResponse;
+import de.ancud.camunda.connector.sql.validator.RequestValidator;
 import org.camunda.connect.impl.AbstractConnectorRequest;
 
 /**

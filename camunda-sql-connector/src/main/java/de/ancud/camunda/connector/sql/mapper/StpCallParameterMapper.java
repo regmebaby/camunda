@@ -3,25 +3,23 @@ package de.ancud.camunda.connector.sql.mapper;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.type.TypeFactory;
 import de.ancud.camunda.connector.sql.dto.StpCallDTO;
-import org.camunda.commons.utils.StringUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * @author bnmaxim.
  */
 public class StpCallParameterMapper {
 
-    private static Logger Log = LoggerFactory.getLogger(StpCallParameterMapper.class.getName());
+    private static final Logger Log = LoggerFactory.getLogger(StpCallParameterMapper.class.getName());
 
     /**
      * Deserializes the inputParameter into a Map<> which should be of the form {nametype: 'value'}
+     *
      * @param inParams
      * @return
      */

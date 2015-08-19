@@ -22,8 +22,8 @@ import java.util.Properties;
 public class SqlConnectorImpl extends AbstractConnector<SqlRequest, SqlResponse> implements SqlConnector {
 
     private static Logger _log = LoggerFactory.getLogger(SqlConnectorImpl.class.getName());
-    private RequestTypeChecker checker = new RequestTypeChecker();
-    private DataSourceConfig dataSourceConfig = new DataSourceConfig();
+    private final RequestTypeChecker checker = new RequestTypeChecker();
+    private final DataSourceConfig dataSourceConfig = new DataSourceConfig();
     private SqlConnectorService connectorService;
 
     public SqlConnectorImpl() {
@@ -43,7 +43,7 @@ public class SqlConnectorImpl extends AbstractConnector<SqlRequest, SqlResponse>
 
         SqlResponseImpl sqlResponse = new SqlResponseImpl();
 
-        if (checker.isSqlSelect(params)){
+        if (checker.isSqlSelect(params)) {
             String selectQuery = (String) params.get(ConnectorKeys.INPUT_KEY_SQL_SELECT);
             List<Map<String, Object>> sqlResult = getSqlConnectorService(params).executeSelectQuery(selectQuery);
             sqlResponse.addSqlResultParameter(sqlResult);
@@ -52,8 +52,8 @@ public class SqlConnectorImpl extends AbstractConnector<SqlRequest, SqlResponse>
         return sqlResponse;
     }
 
-    private SqlConnectorService getSqlConnectorService(Map<String, Object> params){
-        if (this.connectorService == null){
+    private SqlConnectorService getSqlConnectorService(Map<String, Object> params) {
+        if (this.connectorService == null) {
             Properties connProps = dataSourceConfig.getDBConnectionInfo(params);
             this.connectorService = new SqlConnectorService(connProps);
         }

@@ -16,7 +16,7 @@ public class OracleTestDataSourceFactoryImpl implements SqlConnectorDataSourceFa
         String password = "test";
         String url = "jdbc:oracle:thin:@localhost:49161:xe";
         String driverClassName = "oracle.jdbc.driver.OracleDriver";
-        DriverManagerDataSource ds = new DriverManagerDataSource(url, username,password);
+        DriverManagerDataSource ds = new DriverManagerDataSource(url, username, password);
         ds.setDriverClassName(driverClassName);
         return ds;
     }

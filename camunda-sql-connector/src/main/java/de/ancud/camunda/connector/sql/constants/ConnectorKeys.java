@@ -9,10 +9,10 @@ public class ConnectorKeys {
     public static final String INPUT_KEY_SQL_STP = "stp";
 
     //Config keys for properties coming from the process
-    public static final String INPUT_KEY_DB_URL="db.conf.url";
-    public static final String INPUT_KEY_DB_USERNAME="db.conf.username";
-    public static final String INPUT_KEY_DB_PASSWORD="db.conf.password";
-    public static final String INPUT_KEY_DB_DRIVER_CLASSNAME="db.conf.driver.classname";
+    public static final String INPUT_KEY_DB_URL = "db.conf.url";
+    public static final String INPUT_KEY_DB_USERNAME = "db.conf.username";
+    public static final String INPUT_KEY_DB_PASSWORD = "db.conf.password";
+    public static final String INPUT_KEY_DB_DRIVER_CLASSNAME = "db.conf.driver.classname";
 
     public static final String OUTPUT_KEY_QUERY_RESULT = "result";
 

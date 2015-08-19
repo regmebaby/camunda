@@ -19,15 +19,14 @@ import java.util.Map;
  * @author bnmaxim.
  */
 public class SqlConnectorDAOImpl implements SqlConnectorDAO {
-    private static Logger Log = LoggerFactory.getLogger(SqlConnectorDAOImpl.class.getName());
-    private DataSource dataSource;
+    private static final Logger Log = LoggerFactory.getLogger(SqlConnectorDAOImpl.class.getName());
     private JdbcTemplate jdbcTemplate;
     private SqlConnectorDataSourceFactory dataSourceFactory;
 
     public SqlConnectorDAOImpl(SqlConnectorDataSourceFactory dataSourceFactory) {
         try {
             setDataSourceFactory(dataSourceFactory);
-            dataSource = this.dataSourceFactory.getDataSource();
+            DataSource dataSource = this.dataSourceFactory.getDataSource();
             this.jdbcTemplate = new JdbcTemplate(dataSource);
         } catch (Throwable e) {
             Log.error("Failed to initialize DAO because ", e);

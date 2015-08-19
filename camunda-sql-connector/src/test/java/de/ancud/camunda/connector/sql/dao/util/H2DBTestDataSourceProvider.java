@@ -18,8 +18,8 @@ import java.sql.SQLException;
  */
 public class H2DBTestDataSourceProvider implements TestDataSourceProvider {
 
-    public static final String TEST_CONFIG_SQL = "test-config.sql";
-    private static Logger Log = LoggerFactory.getLogger(SqlConnectorDAOImpl.class.getName());
+    private static final String TEST_CONFIG_SQL = "test-config.sql";
+    private static final Logger Log = LoggerFactory.getLogger(SqlConnectorDAOImpl.class.getName());
     private SqlConnectorDAO dao;
     private Connection connection;
 

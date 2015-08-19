@@ -18,20 +18,16 @@ public class SqlResponseImpl extends AbstractConnectorResponse implements Connec
 
     @Override
     protected void collectResponseParameters(Map<String, Object> responseParameters) {
+    }
+
+    public void addResponseParameter(Object value) {
         if (responseParameters == null) {
             responseParameters = new HashMap<String, Object>();
         }
-        responseParameters.put("res", "true");
+        responseParameters.put(ConnectorKeys.OUTPUT_KEY_QUERY_RESULT, value);
     }
 
-    public void addResponseParameter(String key, Object value){
-        if (responseParameters == null) {
-            responseParameters = new HashMap<String, Object>();
-        }
-        responseParameters.put(key, value);
-    }
-
-    public void addSqlResultParameter(Object value){
-        this.addResponseParameter(ConnectorKeys.OUTPUT_KEY_QUERY_RESULT,value);
+    public void addSqlResultParameter(Object value) {
+        this.addResponseParameter(value);
     }
 }

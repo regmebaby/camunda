@@ -20,7 +20,7 @@ public class SimpleDAOTest {
 
     @Before
     public void setUp() throws Exception {
-         dataSourceProvider = new H2DBTestDataSourceProvider();
+        dataSourceProvider = new H2DBTestDataSourceProvider();
     }
 
     @Test

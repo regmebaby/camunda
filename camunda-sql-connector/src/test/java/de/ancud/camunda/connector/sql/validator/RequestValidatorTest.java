@@ -1,7 +1,6 @@
 package de.ancud.camunda.connector.sql.validator;
 
 import de.ancud.camunda.connector.sql.constants.ConnectorKeys;
-import de.ancud.camunda.connector.sql.validator.RequestValidator;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -14,17 +13,12 @@ import java.util.Map;
  */
 public class RequestValidatorTest {
 
-    private RequestValidator validator = new RequestValidator();
-
-    @Before
-    public void setUp() throws Exception {
-
-    }
+    private final RequestValidator validator = new RequestValidator();
 
     @Test
     public void testValidSelectQuery() throws Exception {
-        Map<String,Object> requestParams0 = new HashMap<String, Object>();
-        Map<String,Object> requestParams1 = new HashMap<String, Object>();
+        Map<String, Object> requestParams0 = new HashMap<String, Object>();
+        Map<String, Object> requestParams1 = new HashMap<String, Object>();
         requestParams0.put(ConnectorKeys.INPUT_KEY_SQL_SELECT, "SelEct");
         requestParams1.put(ConnectorKeys.INPUT_KEY_SQL_SELECT, "select");
 
@@ -36,16 +30,17 @@ public class RequestValidatorTest {
 
     @Test
     public void testValidSTPCall() throws Exception {
-        Map<String,Object> requestParams = new HashMap<String, Object>();
+        Map<String, Object> requestParams = new HashMap<String, Object>();
         requestParams.put(ConnectorKeys.INPUT_KEY_SQL_STP, "{call fictionalTestProcedure()}");
 
-        Assert.assertTrue("Expected the params to contain a value for the param " + ConnectorKeys.INPUT_KEY_SQL_STP, validator.validateRequest
+        Assert.assertTrue("Expected the params to contain a value for the param " + ConnectorKeys.INPUT_KEY_SQL_STP,
+                validator.validateRequest
                 (requestParams));
     }
 
     @Test
     public void testInvalidSelectQuery() throws Exception {
-        Map<String,Object> requestParams = new HashMap<String, Object>();
+        Map<String, Object> requestParams = new HashMap<String, Object>();
         requestParams.put(ConnectorKeys.INPUT_KEY_SQL_SELECT, "Insert");
 
         Assert.assertFalse("Expected invalid result for Select Param with value \"insert\" ", validator.validateRequest
@@ -54,7 +49,7 @@ public class RequestValidatorTest {
 
     @Test
     public void testInvalidSTPCall() throws Exception {
-        Map<String,Object> requestParams = new HashMap<String, Object>();
+        Map<String, Object> requestParams = new HashMap<String, Object>();
         requestParams.put(ConnectorKeys.INPUT_KEY_SQL_SELECT, "SELECT");
         requestParams.put(ConnectorKeys.INPUT_KEY_SQL_STP, "{call fictionalTestProcedure()}");
 

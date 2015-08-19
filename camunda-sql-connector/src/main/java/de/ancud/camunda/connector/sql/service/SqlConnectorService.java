@@ -16,7 +16,7 @@ import java.util.Properties;
  * @author bnmaxim.
  */
 public class SqlConnectorService {
-    private SqlConnectorDAO dao;
+    private final SqlConnectorDAO dao;
 
     /**
      * All the service needs to initialize itself are the database connection properties, which it uses to create an
@@ -32,10 +32,10 @@ public class SqlConnectorService {
 
     /**
      * Execute an SQL Select query against the database configured with its own DAO instance. (See constructor)
-     *
+     * <p>
      * Example return value: 2 rows from database, JSON formatted.
      * [{username:'JaneDoe' , password:'29ab2a6bb9f2e8c43171dcc27249db84'},
-     *  {username:'JohnDoe' , password:'38f9de6361367cee719c723a4ed2489a'}]
+     * {username:'JohnDoe' , password:'38f9de6361367cee719c723a4ed2489a'}]
      *
      * @param selectQuery Expects a complete and valid sql select statement. No dynamic parameter values allowed.
      * @return a list of result rows, each consisting of multiple key-value pairs. The key corresponds to the column

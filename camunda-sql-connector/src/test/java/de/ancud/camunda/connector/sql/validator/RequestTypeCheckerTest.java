@@ -5,9 +5,9 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.util.HashMap;
-import java.util.Map;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 /**
  * @author bnmaxim.
@@ -43,7 +43,7 @@ public class RequestTypeCheckerTest {
     }
 
     @Test
-    public void testValidIsStoredProcedureCall() throws Exception{
+    public void testValidIsStoredProcedureCall() throws Exception {
         requestParams.put(ConnectorKeys.INPUT_KEY_SQL_STP, null);
 
         assertTrue("Request contains an STP call, expected the checker to answer TRUE", this.requestTypeChecker
@@ -52,7 +52,7 @@ public class RequestTypeCheckerTest {
     }
 
     @Test
-    public void testInvalidIsStoredProcedureCall() throws Exception{
+    public void testInvalidIsStoredProcedureCall() throws Exception {
         requestParams.put("select", null);
 
         assertFalse("Request does not contain an STP call, expected the checker to answer FALSE", this

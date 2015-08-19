@@ -14,13 +14,13 @@ import java.util.Map;
  */
 public class SqlTypeMapper {
 
-    private static Logger Log = LoggerFactory.getLogger(SqlTypeMapper.class.getName());
-    private Map<String,Integer> jdbcTypeMap = new HashMap<String, Integer>();
+    private static final Logger Log = LoggerFactory.getLogger(SqlTypeMapper.class.getName());
+    private final Map<String, Integer> jdbcTypeMap = new HashMap<String, Integer>();
 
     public SqlTypeMapper() {
         for (Field field : Types.class.getFields()) {
             try {
-                this.jdbcTypeMap.put(field.getName(), (Integer)field.get(null));
+                this.jdbcTypeMap.put(field.getName(), (Integer) field.get(null));
             } catch (IllegalAccessException e) {
                 //skip
             }
@@ -35,9 +35,9 @@ public class SqlTypeMapper {
      * @param sqlType valid String representation of java.sql.Types type
      * @return the value corresponding to the input parameter name, as defined in java.sql.Types.
      */
-    public int getSqlType(String sqlType){
+    public int getSqlType(String sqlType) {
         Integer sqlTypeInteger = jdbcTypeMap.get(StringUtils.upperCase(sqlType));
-        if (sqlTypeInteger==null) {
+        if (sqlTypeInteger == null) {
             Log.debug("Failed to map the Supplied SQL data type to a java.sql.Types type " + sqlType);
             throw new RuntimeException("Incorrect SQL data type supplied: " + sqlType);
         }

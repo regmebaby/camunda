@@ -46,11 +46,11 @@ public class ExternalDbDaoTests {
 
         Map<String, Object> res = dao.callStoredProcedure("SELECT_ORDERS", params);
         System.out.println("res = " + res);
-        BigDecimal otherCurrency = (BigDecimal)res.get("OTHER_CURRENCY");
-        BigDecimal sum = (BigDecimal)res.get("SUM_PAR");
-        BigDecimal costTotal = (BigDecimal)res.get("COST_TOTAL");
+        BigDecimal otherCurrency = (BigDecimal) res.get("OTHER_CURRENCY");
+        BigDecimal sum = (BigDecimal) res.get("SUM_PAR");
+        BigDecimal costTotal = (BigDecimal) res.get("COST_TOTAL");
 
-        Assert.assertEquals("Expected exactly 3 result in map",3, res.size());
+        Assert.assertEquals("Expected exactly 3 result in map", 3, res.size());
         Assert.assertEquals(sum.multiply(new BigDecimal(excRateVal)), otherCurrency);
         Assert.assertEquals(sum.add(new BigDecimal(fixedCostVal)), costTotal);
     }

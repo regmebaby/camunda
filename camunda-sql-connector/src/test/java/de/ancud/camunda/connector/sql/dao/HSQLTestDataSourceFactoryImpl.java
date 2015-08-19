@@ -1,7 +1,6 @@
 package de.ancud.camunda.connector.sql.dao;
 
 import org.h2.jdbcx.JdbcDataSource;
-import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
 import javax.sql.DataSource;
 

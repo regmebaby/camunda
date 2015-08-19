@@ -28,13 +28,13 @@ public class StpCallDTO {
         return dataType;
     }
 
-    public void setDataType(String dataType){
+    public void setDataType(String dataType) {
 
         this.dataType = Integer.parseInt(dataType);
     }
 
     @Override
     public String toString() {
-        return "{name=" + name + ", value=" + value + ", dataType=" + dataType +"}";
+        return "{name=" + name + ", value=" + value + ", dataType=" + dataType + "}";
     }
 }

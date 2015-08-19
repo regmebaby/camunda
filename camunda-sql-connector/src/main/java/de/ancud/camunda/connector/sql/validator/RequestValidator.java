@@ -15,9 +15,9 @@ import java.util.Map;
  */
 public class RequestValidator {
 
-    private static Logger Log = LoggerFactory.getLogger(RequestValidator.class.getName());
+    private static final Logger Log = LoggerFactory.getLogger(RequestValidator.class.getName());
 
-    private RequestTypeChecker checker = new RequestTypeChecker();
+    private final RequestTypeChecker checker = new RequestTypeChecker();
 
     /**
      * Checks which input-parameter has been set. If both an SQL-Statement AND a Stored Procedure Call are found,
