@@ -20,6 +20,10 @@ public class StpCallParameterMapperTest {
 
     }
 
+    /**
+     * mapper gets a valid stp parameter JSON array as input. should be able to convert it.
+     * @throws Exception
+     */
     @Test
     public void testValidMapping() throws Exception {
         String validStpParams = "[{\"name\":\"EXC_RATE\", \"dataType\":\"8\", \"value\": \"0.5\"}, " +
@@ -31,9 +35,13 @@ public class StpCallParameterMapperTest {
 
     }
 
+    /**
+     * Mapper gets a non-Array as an input parameter. Should fail.
+     * @throws Exception
+     */
     @Test
-    public void testInValidMapping() throws Exception {
-        String validStpParams = "{\"name\":\"EXC_RATE\", \"dataType\":\"8\", \"value\": \"0.5\"}, ";
+    public void testInvalidNonArrayMapping() throws Exception {
+        String validStpParams = "{\"name\":\"EXC_RATE\", \"dataType\":\"8\", \"value\": \"0.5\"} ";
 
         List<StpCallDTO> res = mapper.map(validStpParams);
 

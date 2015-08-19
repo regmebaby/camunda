@@ -1,16 +1,10 @@
-package de.ancud.camunda.connector.sql.integration;
+package de.ancud.camunda.connector.sql;
 
-import de.ancud.camunda.connector.sql.SqlConnector;
-import de.ancud.camunda.connector.sql.SqlConnectorProvider;
-import de.ancud.camunda.connector.sql.SqlRequest;
 import de.ancud.camunda.connector.sql.constants.ConnectorKeys;
-import de.ancud.camunda.connector.sql.dao.HSQLTestDataSourceFactoryImpl;
-import de.ancud.camunda.connector.sql.impl.SqlConnectorImpl;
+import de.ancud.camunda.connector.sql.dao.util.H2DBTestDataSourceProvider;
 import de.ancud.camunda.connector.sql.impl.SqlConnectorProviderImpl;
-import de.ancud.camunda.connector.sql.impl.SqlRequestImpl;
-import de.ancud.camunda.connector.sql.util.TestDataSourceProvider;
-import org.camunda.connect.spi.Connector;
 import org.camunda.connect.spi.ConnectorResponse;
+import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -24,11 +18,12 @@ import java.util.Map;
 public class ConnectorTest {
 
     private SqlConnectorProviderImpl provider;
+    private H2DBTestDataSourceProvider testDataSourceProvider;
 
     @Before
     public void setUp() throws Exception {
         //init new InMemory Database
-        TestDataSourceProvider.getDaoAndInitH2DB();
+        testDataSourceProvider = new H2DBTestDataSourceProvider();
         provider = new SqlConnectorProviderImpl();
     }
 
@@ -65,5 +60,10 @@ public class ConnectorTest {
         ConnectorResponse response = sqlRequest.execute();
 
 
+    }
+
+    @After
+    public void tearDown() throws Exception {
+        testDataSourceProvider.resetData();
     }
 }

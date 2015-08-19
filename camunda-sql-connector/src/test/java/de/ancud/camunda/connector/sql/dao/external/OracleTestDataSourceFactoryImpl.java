@@ -1,5 +1,6 @@
-package de.ancud.camunda.connector.sql.dao;
+package de.ancud.camunda.connector.sql.dao.external;
 
+import de.ancud.camunda.connector.sql.dao.SqlConnectorDataSourceFactory;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
 import javax.sql.DataSource;

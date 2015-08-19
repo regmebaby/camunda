@@ -28,8 +28,9 @@ public class StpCallDTO {
         return dataType;
     }
 
-    public void setDataType(int dataType) {
-        this.dataType = dataType;
+    public void setDataType(String dataType){
+
+        this.dataType = Integer.parseInt(dataType);
     }
 
     @Override
