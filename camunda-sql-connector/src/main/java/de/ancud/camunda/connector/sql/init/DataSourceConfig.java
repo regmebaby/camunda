@@ -2,11 +2,9 @@ package de.ancud.camunda.connector.sql.init;
 
 import de.ancud.camunda.connector.sql.constants.ConnectorKeys;
 import de.ancud.camunda.connector.sql.constants.Constants;
-import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.env.MissingRequiredPropertiesException;
-import org.springframework.util.CollectionUtils;
 
 import java.io.IOException;
 import java.util.Map;
@@ -95,9 +93,9 @@ public class DataSourceConfig {
      */
     private String getProp(Map<String, Object> params, String keyNameExpected) throws
             MissingRequiredPropertiesException {
-        if (CollectionUtils.containsInstance(params.keySet(), keyNameExpected)) {
+        if (params.keySet().contains(keyNameExpected)) {
             String val = (String) params.get(keyNameExpected);
-            if (StringUtils.isNotBlank(val)) {
+            if (!val.equals("")) {
                 return val;
             }
         }
