@@ -52,6 +52,11 @@ public class RequestValidator {
             Log.debug("Submitted update: " + val);
             return StringUtils.startsWithIgnoreCase(val, Constants.INSERT) || StringUtils.startsWithIgnoreCase(val, Constants.UPDATE) || StringUtils.startsWithIgnoreCase(val, Constants.DELETE) || StringUtils.startsWithIgnoreCase(val, Constants.MERGE);
         }
+        if(checker.isSqlExecute(requestParams)){
+            String val = (String) requestParams.get(ConnectorKeys.INPUT_KEY_SQL_EXECUTE);
+            Log.debug("Submitted update: " + val);
+            return true;
+        }
         return false;
     }
 

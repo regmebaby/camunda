@@ -16,4 +16,6 @@ public interface SqlConnectorDAO {
     int update(String pUpdateQuery);
 
     Map<String, Object> callStoredProcedure(String stpName, List<StpCallDTO> sqlParams);
+
+    int execute(String pExecuteQuery);
 }

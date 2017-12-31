@@ -49,6 +49,10 @@ public class SqlConnectorService {
         return this.dao.update(updateQuery);
     }
 
+    public int executeExecuteQuery(String executeQuery){
+        return this.dao.execute(executeQuery);
+    }
+
     /**
      * Executes a stored procedure call
      *

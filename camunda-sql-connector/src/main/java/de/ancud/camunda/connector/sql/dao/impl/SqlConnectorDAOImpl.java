@@ -64,6 +64,18 @@ public class SqlConnectorDAOImpl implements SqlConnectorDAO {
         return result;
     }
 
+    @Override
+    public int execute(String pExecuteQuery) {
+        int result;
+        try {
+            jdbcTemplate.execute(pExecuteQuery);
+            result = 0;
+        } catch (DataAccessException pE) {
+            result = -1;
+        }
+        return result;
+    }
+
 
     public Map<String, Object> callStoredProcedure(String stpName, List<StpCallDTO> sqlParams) {
         ArrayList<SqlParameter> params = new ArrayList<SqlParameter>();

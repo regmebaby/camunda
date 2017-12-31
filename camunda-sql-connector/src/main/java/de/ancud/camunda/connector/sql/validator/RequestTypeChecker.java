@@ -26,4 +26,8 @@ public class RequestTypeChecker {
     public boolean isStoredProcedureCall(Map<String, Object> requestParams) {
         return requestParams.keySet().contains(ConnectorKeys.INPUT_KEY_SQL_STP);
     }
+
+    public boolean isSqlExecute(Map<String, Object> requestParams) {
+        return requestParams.keySet().contains(ConnectorKeys.INPUT_KEY_SQL_EXECUTE);
+    }
 }
