@@ -4,6 +4,7 @@ import de.ancud.camunda.connector.sql.dao.SqlConnectorDAO;
 import de.ancud.camunda.connector.sql.dao.util.OracleTestDataSourceProvider;
 import de.ancud.camunda.connector.sql.dto.StpCallDTO;
 import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.math.BigDecimal;
@@ -14,6 +15,7 @@ import java.util.Map;
 /**
  * @author bnmaxim.
  */
+@Ignore
 public class ExternalDbDaoTests {
 
     @Test

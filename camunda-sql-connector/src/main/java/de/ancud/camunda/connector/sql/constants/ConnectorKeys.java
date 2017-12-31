@@ -6,6 +6,7 @@ package de.ancud.camunda.connector.sql.constants;
 public class ConnectorKeys {
 
     public static final String INPUT_KEY_SQL_SELECT = "select";
+    public static final String INPUT_KEY_SQL_UPDATE = "update";
     public static final String INPUT_KEY_SQL_STP = "stp";
 
     //Config keys for properties coming from the process

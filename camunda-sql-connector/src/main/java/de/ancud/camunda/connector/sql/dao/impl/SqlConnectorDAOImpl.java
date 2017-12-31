@@ -5,6 +5,7 @@ import de.ancud.camunda.connector.sql.dao.SqlConnectorDataSourceFactory;
 import de.ancud.camunda.connector.sql.dto.StpCallDTO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.SqlParameter;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
@@ -43,7 +44,24 @@ public class SqlConnectorDAOImpl implements SqlConnectorDAO {
     }
 
     public List<Map<String, Object>> select(String select) {
-        return jdbcTemplate.queryForList(select);
+        List<Map<String, Object>> result;
+        try {
+            result = jdbcTemplate.queryForList(select);
+        } catch (DataAccessException pE) {
+            result = null;
+        }
+        return result;
+    }
+
+    @Override
+    public int update(String pUpdateQuery) {
+        int result;
+        try {
+            result = jdbcTemplate.update(pUpdateQuery);
+        } catch (DataAccessException pE) {
+            result = -1;
+        }
+        return result;
     }
 
 

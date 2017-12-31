@@ -62,6 +62,44 @@ public class ConnectorTest {
 
     }
 
+    @Test
+    public void testDatabaseUpdateResultsPositive() throws Exception {
+        SqlConnector conn = provider.createConnectorInstance();
+        SqlRequest sqlRequest = conn.createRequest();
+        sqlRequest.getRequestParameters().put(ConnectorKeys.INPUT_KEY_SQL_UPDATE, "delete from DEMO_CUSTOMERS;");
+
+        ConnectorResponse response = sqlRequest.execute();
+
+        Assert.assertTrue(response.getResponseParameters() != null);
+        Assert.assertTrue(response.getResponseParameter(ConnectorKeys.OUTPUT_KEY_QUERY_RESULT) != null);
+        int rows = response.getResponseParameter(ConnectorKeys
+                .OUTPUT_KEY_QUERY_RESULT);
+        Assert.assertEquals(2, rows);
+
+        conn = provider.createConnectorInstance();
+        sqlRequest = conn.createRequest();
+        sqlRequest.getRequestParameters().put(ConnectorKeys.INPUT_KEY_SQL_SELECT, "select * from DEMO_CUSTOMERS where" +
+                " Customer_ID in (1,2)");
+
+        response = sqlRequest.execute();
+
+        Assert.assertTrue(response.getResponseParameters() != null);
+        Assert.assertTrue(response.getResponseParameter(ConnectorKeys.OUTPUT_KEY_QUERY_RESULT) != null);
+        List<Map<String, Object>> rows_ = response.getResponseParameter(ConnectorKeys
+                .OUTPUT_KEY_QUERY_RESULT);
+        Assert.assertEquals(0, rows_.size());
+
+    }
+
+    @Test(expected = RuntimeException.class)
+    public void testInvalidUpdateRequest() throws Exception {
+        SqlConnector conn = provider.createConnectorInstance();
+        SqlRequest sqlRequest = conn.createRequest();
+        sqlRequest.getRequestParameters().put(ConnectorKeys.INPUT_KEY_SQL_UPDATE, "select * from DEMO_CUSTOMERS where" +
+                " Customer_ID in (1,2)");
+        ConnectorResponse response = sqlRequest.execute();
+    }
+
     @After
     public void tearDown() throws Exception {
         testDataSourceProvider.resetData();

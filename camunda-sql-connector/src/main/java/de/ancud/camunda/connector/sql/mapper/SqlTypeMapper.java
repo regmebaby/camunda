@@ -41,6 +41,6 @@ public class SqlTypeMapper {
             Log.debug("Failed to map the Supplied SQL data type to a java.sql.Types type " + sqlType);
             throw new RuntimeException("Incorrect SQL data type supplied: " + sqlType);
         }
-        return sqlTypeInteger.intValue();
+        return sqlTypeInteger;
     }
 }

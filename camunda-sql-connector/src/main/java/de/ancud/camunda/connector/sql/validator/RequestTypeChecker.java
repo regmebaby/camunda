@@ -19,6 +19,10 @@ public class RequestTypeChecker {
         return requestParams.keySet().contains(ConnectorKeys.INPUT_KEY_SQL_SELECT);
     }
 
+    public boolean isSqlUpdate(Map<String, Object> requestParams) {
+        return requestParams.keySet().contains(ConnectorKeys.INPUT_KEY_SQL_UPDATE);
+    }
+
     public boolean isStoredProcedureCall(Map<String, Object> requestParams) {
         return requestParams.keySet().contains(ConnectorKeys.INPUT_KEY_SQL_STP);
     }

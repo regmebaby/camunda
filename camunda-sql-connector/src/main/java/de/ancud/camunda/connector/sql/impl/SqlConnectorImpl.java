@@ -47,6 +47,10 @@ public class SqlConnectorImpl extends AbstractConnector<SqlRequest, SqlResponse>
             String selectQuery = (String) params.get(ConnectorKeys.INPUT_KEY_SQL_SELECT);
             List<Map<String, Object>> sqlResult = getSqlConnectorService(params).executeSelectQuery(selectQuery);
             sqlResponse.addSqlResultParameter(sqlResult);
+        } else if (checker.isSqlUpdate(params)) {
+            String updateQuery = (String) params.get(ConnectorKeys.INPUT_KEY_SQL_UPDATE);
+            int sqlResult = getSqlConnectorService(params).executeUpdateQuery(updateQuery);
+            sqlResponse.addSqlResultParameter(sqlResult);
         }
 
         return sqlResponse;
