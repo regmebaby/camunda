@@ -50,7 +50,7 @@ public class RequestValidator {
         if (checker.isSqlUpdate(requestParams)) {
             String val = (String) requestParams.get(ConnectorKeys.INPUT_KEY_SQL_UPDATE);
             Log.debug("Submitted update: " + val);
-            return StringUtils.startsWithIgnoreCase(val, Constants.INSERT) || StringUtils.startsWithIgnoreCase(val, Constants.UPDATE) || StringUtils.startsWithIgnoreCase(val, Constants.DELETE);
+            return StringUtils.startsWithIgnoreCase(val, Constants.INSERT) || StringUtils.startsWithIgnoreCase(val, Constants.UPDATE) || StringUtils.startsWithIgnoreCase(val, Constants.DELETE) || StringUtils.startsWithIgnoreCase(val, Constants.MERGE);
         }
         return false;
     }
